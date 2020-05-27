@@ -13,6 +13,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
+#include "function.h"
+
 /*
     Handle Error and Exit
 */
@@ -89,6 +91,9 @@ int main(int argc, char *argv[]){
         if(n < 0)
             error("ERROR: Problem Reading from Remote Socket");
         printf("Client : %s\n",buffer);
+        int p = transcribe("Client : ","server.txt");
+        p = transcribe(buffer,"server.txt");
+        p = transcribe("\n","server.txt");
 
         if(!checkEnd(buffer))
             break;
@@ -97,8 +102,11 @@ int main(int argc, char *argv[]){
         bzero(buffer,256);
 
         printf("Server : ");
+        p = transcribe("Server : ","server.txt");
         fgets(buffer,255,stdin);
+        p = transcribe(buffer,"server.txt");
         printf("\n");
+        p = transcribe("\n","server.txt");
 
         if(!checkEnd(buffer))
             break;

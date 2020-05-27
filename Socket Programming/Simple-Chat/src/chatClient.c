@@ -14,6 +14,8 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
+#include "function.h"
+
 /*
     Handle Error and Exit
 */
@@ -91,8 +93,13 @@ int main(int argc, char *argv[]){
     // 4. Start Loop
     while(stat) {
         printf("Client : ");
+        transcribe("Client : ","client.txt");
+
         fgets(buffer,255,stdin);
+        int p = transcribe(buffer,"client.txt");
+
         printf("\n");
+        p = transcribe("\n","client.txt");
         int n = write(sockfd,buffer,strlen(buffer));
         if(n < 0)
             error("ERROR: Could Note Write to Remote Socket");
@@ -106,7 +113,11 @@ int main(int argc, char *argv[]){
         if(n < 0)
             error("ERROR: Problem Reading from Remote Socket");
         printf("Server: %s",buffer);
+        p = transcribe("Server: ","client.txt");
+        p = transcribe(buffer,"client.txt");
+
         printf("\n");
+        p = transcribe("\n","client.txt");
 
         if(!checkEnd(buffer))
             break;
